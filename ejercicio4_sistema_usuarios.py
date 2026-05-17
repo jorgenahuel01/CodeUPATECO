@@ -11,26 +11,29 @@ APELLIDOS = ["Garcia", "Lopez", "Martinez", "Rodriguez", "Gonzalez", "Hernandez"
 def crear_usuario():
     print("\n--- CREAR USUARIO ---")
 
-    nombre = input("Nombre: ").strip()
-    if nombre == "":
+    while True:
+        nombre = input("Nombre: ").strip()
+        if nombre != "":
+            break
         print("El nombre no puede estar vacio.")
-        return
 
-    apellido = input("Apellido: ").strip()
-    if apellido == "":
+    while True:
+        apellido = input("Apellido: ").strip()
+        if apellido != "":
+            break
         print("El apellido no puede estar vacio.")
-        return
 
-    edad_str = input("Edad: ").strip()
-    if not edad_str.isdigit() or not (1 <= int(edad_str) <= 120):
-        print("Edad invalida.")
-        return
+    while True:
+        edad_str = input("Edad: ").strip()
+        if edad_str.isdigit() and 1 <= int(edad_str) <= 120:
+            break
+        print("Edad invalida. Ingresa un numero entre 1 y 120.")
 
-    print(f"Roles disponibles: {ROLES[0]} / {ROLES[1]}")
-    rol = input("Rol: ").strip().lower()
-    if rol not in ROLES:
+    while True:
+        rol = input(f"Rol ({ROLES[0]}/{ROLES[1]}): ").strip().lower()
+        if rol in ROLES:
+            break
         print("Rol invalido.")
-        return
 
     usuario = f"{nombre.lower()}.{apellido.lower()}"
     for u in usuarios:
@@ -91,19 +94,23 @@ def editar_usuario():
             if apellido != "":
                 u["apellido"] = apellido
 
-            edad_str = input(f"Edad [{u['edad']}]: ").strip()
-            if edad_str != "":
+            while True:
+                edad_str = input(f"Edad [{u['edad']}]: ").strip()
+                if edad_str == "":
+                    break
                 if edad_str.isdigit() and 1 <= int(edad_str) <= 120:
                     u["edad"] = int(edad_str)
-                else:
-                    print("Edad invalida, se mantiene la anterior.")
+                    break
+                print("Edad invalida.")
 
-            rol = input(f"Rol [{u['rol']}] (admin/user): ").strip().lower()
-            if rol != "":
+            while True:
+                rol = input(f"Rol [{u['rol']}] (admin/user): ").strip().lower()
+                if rol == "":
+                    break
                 if rol in ROLES:
                     u["rol"] = rol
-                else:
-                    print("Rol invalido, se mantiene el anterior.")
+                    break
+                print("Rol invalido.")
 
             print("Usuario actualizado.")
             return
@@ -120,7 +127,6 @@ def eliminar_usuario():
 
     for i in range(len(usuarios)):
         if usuarios[i]["id"] == int(id_str):
-            print(f"Eliminando a '{usuarios[i]['usuario']}'...")
             usuarios.pop(i)
             print("Usuario eliminado.")
             return
