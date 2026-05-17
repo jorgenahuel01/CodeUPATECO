@@ -12,30 +12,30 @@ def crear_usuario():
     print("\n--- CREAR USUARIO ---")
 
     while True:
-        nombre = input("Nombre: ").strip()
-        if nombre != "":
+        nombre = input("Nombre: ")
+        if nombre != " ":
             break
         print("El nombre no puede estar vacio.")
 
     while True:
-        apellido = input("Apellido: ").strip()
-        if apellido != "":
+        apellido = input("Apellido: ")
+        if apellido != " ":
             break
-        print("El apellido no puede estar vacio.")
+        print("El apellido no puede estar vacio")
 
     while True:
-        edad_str = input("Edad: ").strip()
-        if edad_str.isdigit() and 1 <= int(edad_str) <= 120:
+        edad = input("Edad: ")
+        if edad.isdigit() and 1 <= int(edad) <= 120:
             break
         print("Edad invalida. Ingresa un numero entre 1 y 120.")
 
     while True:
-        rol = input(f"Rol ({ROLES[0]}/{ROLES[1]}): ").strip().lower()
+        rol = input(f"Rol ({ROLES[0]}/{ROLES[1]}): ")
         if rol in ROLES:
             break
         print("Rol invalido.")
 
-    usuario = f"{nombre.lower()}.{apellido.lower()}"
+    usuario = f"{nombre}.{apellido}"
     for u in usuarios:
         if u["usuario"] == usuario:
             usuario = usuario + str(random.randint(10, 99))
@@ -65,7 +65,7 @@ def listar_usuarios():
 
 def buscar_usuario():
     print("\n--- BUSCAR USUARIO ---")
-    termino = input("Nombre o usuario: ").strip().lower()
+    termino = input("Nombre o usuario: ")
     encontrado = False
     for u in usuarios:
         if termino in u["nombre"].lower() or termino in u["usuario"].lower():
@@ -77,7 +77,7 @@ def buscar_usuario():
 
 def editar_usuario():
     print("\n--- EDITAR USUARIO ---")
-    id_str = input("ID del usuario: ").strip()
+    id_str = input("ID del usuario: ")
     if not id_str.isdigit():
         print("ID invalido.")
         return
@@ -120,7 +120,7 @@ def editar_usuario():
 
 def eliminar_usuario():
     print("\n--- ELIMINAR USUARIO ---")
-    id_str = input("ID del usuario: ").strip()
+    id_str = input("ID del usuario: ")
     if not id_str.isdigit():
         print("ID invalido.")
         return
